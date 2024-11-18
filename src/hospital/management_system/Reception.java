@@ -54,7 +54,7 @@ public class Reception extends JFrame {
         btn2.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
-
+                new Room();
             }
         });
         JButton btn3 = new JButton("Department");
@@ -64,7 +64,7 @@ public class Reception extends JFrame {
         btn3.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
-
+                new Department();
             }
         });
         JButton btn4 = new JButton("All Employee Info");

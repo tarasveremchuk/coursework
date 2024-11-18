@@ -1,10 +1,14 @@
 package hospital.management_system;
 
 import javax.swing.*;
+import javax.xml.transform.Result;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.ResultSet;
 import java.util.Date;
 
-public class NEW_PATIENT  extends JFrame {
+public class NEW_PATIENT  extends JFrame implements ActionListener {
     JComboBox comboBox;
     JTextField textFieldNumber,textName,textFieldDisease,textFieldDeposite;
     JRadioButton r1,r2;
@@ -87,12 +91,12 @@ public class NEW_PATIENT  extends JFrame {
         r1.setBounds(271,191,80,12);
         panel.add(r1);
 
-        r1=new JRadioButton("Female");
-        r1.setFont(new Font("Tahoma",Font.BOLD,14));
-        r1.setForeground(Color.WHITE);
-        r1.setBackground(new Color(109,164,170));
-        r1.setBounds(350,191,80,12);
-        panel.add(r1);
+        r2=new JRadioButton("Female");
+        r2.setFont(new Font("Tahoma",Font.BOLD,14));
+        r2.setForeground(Color.WHITE);
+        r2.setBackground(new Color(109,164,170));
+        r2.setBounds(350,191,80,12);
+        panel.add(r2);
 
 
         JLabel labelDisease=new JLabel("Disease:");
@@ -111,6 +115,23 @@ public class NEW_PATIENT  extends JFrame {
         labelRoom.setFont(new Font("Tahoma",Font.BOLD,14));
         labelRoom.setForeground(Color.WHITE);
         panel.add(labelRoom);
+
+        c1=new Choice();
+        try{
+            conn c=new conn();
+            ResultSet resultSet=c.statement.executeQuery("select * from Room");
+            while(resultSet.next()){
+                c1.add(resultSet.getString("room_no"));
+
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        c1.setBounds(271,274,150,20);
+        c1.setFont(new Font("Tahoma",Font.BOLD,14));
+        c1.setForeground(Color.WHITE);
+        c1.setBackground(new Color(3,45,48));
+        panel.add(c1);
 
         //ROom choice//
         JLabel labelDate=new JLabel("Time:");
@@ -143,15 +164,18 @@ public class NEW_PATIENT  extends JFrame {
         b1.setBounds(100,430,120,30);
         b1.setForeground(Color.WHITE);
         b1.setBackground(Color.black);
+        b1.addActionListener(this);
         panel.add(b1);
 
-        b1=new JButton("Back");
+        b2=new JButton("Back");
 
         setUndecorated(true );
-        b1.setBounds(260 ,430,120,30);
-        b1.setForeground(Color.WHITE);
-        b1.setBackground(Color.black);
-        panel.add(b1);
+        b2.setBounds(260 ,430,120,30);
+        b2.setForeground(Color.WHITE);
+        b2.setBackground(Color.black);
+        b2.addActionListener(this);
+
+        panel.add(b2);
 
 
 
@@ -160,7 +184,44 @@ public class NEW_PATIENT  extends JFrame {
         setLocation(300,250);
         setVisible(true);
     }
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if(e.getSource()==b1){
+            conn c=new conn();
+            String radioBTN=null;
+            if(r1.isSelected()){
+                radioBTN="Male";
+            }
+            else if (r2.isSelected()){
+                radioBTN="Female";
+            }
+            String s1=(String) comboBox.getSelectedItem();
+            String s2=textFieldNumber.getText();
+            String s3=textName.getText();
+            String s4=radioBTN;
+            String s5=textFieldDisease.getText();
+            String s6=c1.getSelectedItem();
+            String s7 = date.getText();
+            String s8=textFieldDeposite.getText();
+
+            try{
+                String q = "insert into Patient_Info values ('"+s1+"','"+s2+"','"+s3+"','"+s4+"','"+s5+"','"+s6+"','"+s7+"','"+s3+"')";
+                String q1 = "UPDATE room SET Availability = 'Occupied' WHERE room_no = '"+s6+"'";
+                c.statement.executeUpdate(q);
+                c.statement.executeUpdate(q1);
+                JOptionPane.showMessageDialog(null, "Added Successfully");
+
+            }catch (Exception E){
+                E.printStackTrace();
+            }
+        }
+        else {
+            setVisible(false);
+        }
+    }
     public static void main(String[] args) {
         new NEW_PATIENT();
     }
+
+
 }
