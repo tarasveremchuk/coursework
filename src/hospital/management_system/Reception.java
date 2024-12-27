@@ -43,7 +43,7 @@ public class Reception extends JFrame {
         btn1.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
-                new NEW_PATIENT();
+                new NewPatientForm();
             }
         });
 
@@ -74,7 +74,7 @@ public class Reception extends JFrame {
         btn4.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
-
+                new Employee_info();
             }
         });
         JButton btn5 = new JButton("Patient Info");
@@ -84,7 +84,7 @@ public class Reception extends JFrame {
         btn5.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
-
+                new Patient_info();
             }
         });
         JButton btn6 = new JButton("Patient Discharge");
@@ -94,7 +94,7 @@ public class Reception extends JFrame {
         btn6.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
-
+                new Patient_discharge();
             }
         });
         JButton btn7 = new JButton("Update Patient Details");
@@ -104,7 +104,7 @@ public class Reception extends JFrame {
         btn7.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
-
+                new update_patient_details();
             }
         });
         JButton btn8 = new JButton("Hospital Ambulance");
@@ -114,7 +114,7 @@ public class Reception extends JFrame {
         btn8.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
-
+                new Ambulance();
             }
         });
         JButton btn9 = new JButton("Search Room");
@@ -124,7 +124,7 @@ public class Reception extends JFrame {
         btn9.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
-
+                new SearchRoom();
             }
         });
         JButton btn10 = new JButton("Logout");
@@ -134,7 +134,8 @@ public class Reception extends JFrame {
         btn10.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
-
+                setVisible(false);
+                new Login();
             }
         });
 
